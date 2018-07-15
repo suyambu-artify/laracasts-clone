@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/about',function(){
+	return 'hey';
+});
+
+Route::view('/contact','welcome');
