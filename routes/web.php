@@ -20,3 +20,10 @@ Route::get('/about',function(){
 });
 
 Route::view('/contact','welcome');
+
+
+Route::get('/course/{id}',function($id){
+	$course = \App\Course::find($id);
+	return view('course')->with('course',$course);
+});
+

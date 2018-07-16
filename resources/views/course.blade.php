@@ -79,7 +79,9 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    hello world
+                    {{ $course->title }}
+                    {{ $course->content }}
+                    {{ $course->created_at }}
                 </div>
 
                 <div class="links">
