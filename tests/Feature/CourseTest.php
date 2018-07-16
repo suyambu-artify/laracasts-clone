@@ -12,7 +12,12 @@ class CourseTest extends TestCase
 {
 	use DatabaseMigrations;
 
-    public function testTeacherCreateCourseAndVisitIt(){
+	/**
+	* @group createcoursevisit
+	*
+	* @test
+	*/
+    public function TeacherCreateCourseAndVisitIt(){
     	
     	// arrangement 
     	$course = Course::create(['title'=>'course 1 ','content'=>'Test driven development is a blablabla']);
@@ -25,4 +30,16 @@ class CourseTest extends TestCase
     	$res->assertSee($course->created_at);
 
     }
+
+
+    // *
+    // *@group ifnocourse404
+    // *
+    // *@test
+    
+
+    // public function IfWrongId404(){
+    	
+    // }
+
 }
