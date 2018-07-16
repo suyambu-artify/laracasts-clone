@@ -32,14 +32,13 @@ class CourseTest extends TestCase
     }
 
 
-    // *
-    // *@group ifnocourse404
-    // *
-    // *@test
-    
 
-    // public function IfWrongId404(){
-    	
-    // }
+    public function testIfWrongId404(){
+
+    	$res = $this->get('course/invalid_id');
+
+    	$res->assertStatus(404);
+    	$res->assertSee('Sorry, the page you are looking for could not be found.');
+    }
 
 }

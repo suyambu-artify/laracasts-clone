@@ -21,9 +21,5 @@ Route::get('/about',function(){
 
 Route::view('/contact','welcome');
 
-Route::get('/course/{course}','CourseController@show');
-Route::get('/post/{id}',function($id){
-	$post = \App\Post::find($id);
-	return view('post')->with('post',$post);
-});
+Route::get('/course/{id}','CourseController@show');
 

@@ -44,9 +44,17 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($id)
     {
-        return view('course')->with('course',$course);
+        try{
+        
+            $course = Course::findOrFail($id);
+
+        }catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+            abort(404,'The page you are looking for could not be found');
+        }   
+           return view('course')->with('course',$course);
+
     }
 
     /**
