@@ -46,7 +46,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        return view('course')->with('course',$course);
     }
 
     /**
