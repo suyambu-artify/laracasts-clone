@@ -15,11 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about',function(){
-	return 'hey';
-});
 
-Route::view('/contact','welcome');
 
-Route::get('/course/{id}','CourseController@show');
+
+
+
 
