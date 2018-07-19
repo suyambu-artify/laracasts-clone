@@ -47317,6 +47317,8 @@ module.exports = function normalizeComponent (
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -47370,6 +47372,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47387,6 +47390,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return true;
             }
             return false;
+        },
+        loginAttempt: function loginAttempt() {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/login', {
+                email: this.email,
+                password: this.password,
+                remember: this.remember
+            }).then(function (resp) {
+                console.log(resp);
+            }).catch(function (error) {
+                console.log(err);
+            });
         }
     },
 
@@ -47531,7 +47545,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Remember Me\n                        "
+                      "\n                        Remember Me\n                    "
                     )
                   ]
                 )
@@ -47543,13 +47557,14 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-success",
-                  attrs: { type: "button", disabled: !_vm.isValidLoginForm }
+                  attrs: { type: "button", disabled: !_vm.isValidLoginForm },
+                  on: {
+                    click: function($event) {
+                      _vm.loginAttempt()
+                    }
+                  }
                 },
-                [
-                  _vm._v(
-                    "\n                        Login\n                    "
-                  )
-                ]
+                [_vm._v("\n                    Login\n                ")]
               )
             ])
           ])
