@@ -47372,6 +47372,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47380,7 +47387,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             password: '',
             email: '',
             remember: true,
-            loading: false
+            loading: false,
+            errors: []
         };
     },
 
@@ -47395,7 +47403,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loginAttempt: function loginAttempt() {
             var _this = this;
 
-            this.loading = true;
+            this.errors = [], this.loading = true;
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/login', {
                 email: this.email,
                 password: this.password,
@@ -47404,6 +47412,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 location.reload();
             }).catch(function (error) {
                 _this.loading = false;
+                if (error.response.status == 422) {
+                    _this.errors.push('we are sorry please enter your info again ');
+                }
             });
         }
     },
@@ -47442,6 +47453,30 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
+            _vm.errors.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "err" },
+                  _vm._l(_vm.errors, function(error) {
+                    return _c("ul", { staticClass: "list-group" }, [
+                      _c(
+                        "li",
+                        {
+                          staticStyle: {
+                            "text-align": "center",
+                            "list-style": "none",
+                            "margin-bottom": "13px",
+                            "font-size": "17px",
+                            color: "red"
+                          }
+                        },
+                        [_vm._v(_vm._s(error))]
+                      )
+                    ])
+                  })
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group row" }, [
               _c("div", { staticClass: "col-md-12" }, [
                 _c("input", {

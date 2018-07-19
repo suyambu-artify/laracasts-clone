@@ -11,6 +11,13 @@
         </div>
         <div class="modal-body">
 
+<div class="err" v-if="errors.length > 0">
+        
+    <ul class="list-group" v-for="error in errors">
+        <li style="text-align: center;list-style: none;margin-bottom: 13px;font-size: 17px;color:red">{{error}}</li>
+    </ul>
+</div>
+    
             <div class="form-group row">
                 <div class="col-md-12">
                     <input type="email" class="form-control" autofocus placeholder="moktar@gmail.com" v-model="email">
@@ -59,7 +66,8 @@ export default {
             password : '',
             email : '',
             remember : true,
-            loading : false
+            loading : false,
+            errors : []
         }
     },
 
@@ -72,12 +80,18 @@ methods : {
             },
 
             loginAttempt(){
+                this.errors = [],
                 this.loading = true
                     axios.post('/login',{
                         email: this.email ,
                         password: this.password ,
                         remember: this.remember
-                    }).then( resp => {  location.reload() }).catch( error => { this.loading = false })
+                    }).then( resp => {  location.reload() 
+                    }).catch( error => { this.loading = false 
+                        if(error.response.status == 422){
+                            this.errors.push('we are sorry please enter your info again ')
+                        }
+                    })
             }
 
 },
@@ -90,3 +104,17 @@ computed : {
 
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
