@@ -47379,7 +47379,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             password: '',
             email: '',
-            remember: true
+            remember: true,
+            loading: false
         };
     },
 
@@ -47392,21 +47393,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return false;
         },
         loginAttempt: function loginAttempt() {
+            var _this = this;
+
+            this.loading = true;
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/login', {
                 email: this.email,
                 password: this.password,
                 remember: this.remember
             }).then(function (resp) {
-                console.log(resp);
+                location.reload();
             }).catch(function (error) {
-                console.log(err);
+                _this.loading = false;
             });
         }
     },
 
     computed: {
         isValidLoginForm: function isValidLoginForm() {
-            return this.isValidEmail() && this.password;
+            return this.isValidEmail() && this.password && !this.loading;
         }
     }
 
@@ -47556,7 +47560,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-success",
+                  staticClass: "btn btn-danger",
                   attrs: { type: "button", disabled: !_vm.isValidLoginForm },
                   on: {
                     click: function($event) {

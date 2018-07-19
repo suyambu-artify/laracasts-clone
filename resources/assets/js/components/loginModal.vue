@@ -37,7 +37,7 @@
 
 
             <div class="col-md-6">
-                <button type="button" class="btn btn-success" :disabled="!isValidLoginForm" @click="loginAttempt()">
+                <button type="button" class="btn btn-danger" :disabled="!isValidLoginForm" @click="loginAttempt()">
                     Login
                 </button>
             </div>
@@ -58,7 +58,8 @@ export default {
         return {
             password : '',
             email : '',
-            remember : true
+            remember : true,
+            loading : false
         }
     },
 
@@ -68,20 +69,22 @@ methods : {
                         return true
                     }
                         return false
-                },
+            },
+
             loginAttempt(){
-                axios.post('/login',{
-                    email: this.email ,
-                    password: this.password ,
-                    remember: this.remember
-                }).then(resp=>{console.log(resp)}).catch(error => {console.log(err)})
-             }
+                this.loading = true
+                    axios.post('/login',{
+                        email: this.email ,
+                        password: this.password ,
+                        remember: this.remember
+                    }).then( resp => {  location.reload() }).catch( error => { this.loading = false })
+            }
 
 },
 
 computed : {
         isValidLoginForm(){
-            return this.isValidEmail() && this.password
+            return this.isValidEmail() && this.password && !this.loading
     }
 }
 
