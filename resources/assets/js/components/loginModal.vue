@@ -1,4 +1,5 @@
 <template>
+
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -12,12 +13,12 @@
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <input type="email" class="form-control" name="email"  required autofocus placeholder="moktar@gmail.com">
+                            <input type="email" class="form-control" autofocus placeholder="moktar@gmail.com" v-model="email">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <input type="text" class="form-control" name="password"  required autofocus placeholder="******">
+                            <input type="text" class="form-control" placeholder="******" v-model="password">
                         </div>
                     </div>
 
@@ -26,7 +27,7 @@
                 <div class="form-group ">
                     <div class="col-md-6 offset-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                            <input class="form-check-input" type="checkbox" id="remember" v-model="remember">
 
                             <label class="form-check-label" for="remember">
                                 Remember Me
@@ -36,7 +37,7 @@
 
 
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-primary">
+                        <button type="button" class="btn btn-success" v-bind:disabled="!isValidLoginForm">
                             Login
                         </button>
                     </div>
@@ -52,6 +53,30 @@
 
 <script>
     export default {
+            data(){
+                return {
+                    password : '',
+                    email : '',
+                    remember : true
+                }
+            },
+
+        methods : {
+                     isValidEmail()
+                        {
+                            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+                                return true
+                            }
+                                return false
+                        }
+
+        },
+
+        computed : {
+                isValidLoginForm(){
+                    return this.isValidEmail() && this.password
+            }
+        }
 
     }
 </script>

@@ -74,7 +74,7 @@
         <main class="py-4">
             @yield('content')
         </main>
-                 <vue-login></vue-login>
+                 <vue-login>    </vue-login>
     </div>
 </body>
 </html>
