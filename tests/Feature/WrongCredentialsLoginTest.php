@@ -13,8 +13,12 @@ class WrongCredentialsLogin extends TestCase
 
 
     public function test_If_User_Enter_Wrong_Credentials(){
-
+    	
+    	// arrangement
         $user = factory(User::class)->create();
+        
+    	// action 
+    	// assert
         $this->postJson('/login',['email'=>$user->email,'password'=>'wrong-password'])
         ->assertStatus(422)
         ->assertJson(['message'=>'your email or password is wrong']);
