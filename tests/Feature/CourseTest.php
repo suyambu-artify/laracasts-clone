@@ -9,8 +9,8 @@
 // use App\Course;
 
 // class CourseTest extends TestCase
-{
-	// use DatabaseMigrations;
+// {
+// 	use DatabaseMigrations;
 
 	// /**
 	// * @group createcoursevisit
@@ -31,59 +31,59 @@
 
  //    }
 
- //    /**
- //    *	@group wrongurl
- //    *	@test 
- //    */
+    // /**
+    // *	@group wrongurl
+    // *	@test 
+    // */
 
- //    public function IfWrongId404(){
+    // public function IfWrongId404(){
 
- //    	$res = $this->get('course/invalid_id');
- //    	$res->assertStatus(404);
- //    	$res->assertSee('Sorry, the page you are looking for could not be found.');
- //    }
+    // 	$res = $this->get('course/invalid_id');
+    // 	$res->assertStatus(404);
+    // 	$res->assertSee('Sorry, the page you are looking for could not be found.');
+    // }
 
 
- //     /**
- //     * @group allcourses
- //     * @test
- //     */
- //     public function testShowAllCourses(){
+    //  /**
+    //  * @group allcourses
+    //  * @test
+    //  */
+    //  public function testShowAllCourses(){
     	
- //     	// arrangement
+    //  	// arrangement
 
- //     	$c1 = factory(Course::class)->create();
- //     	$c2 = factory(Course::class)->create();
+    //  	$c1 = factory(Course::class)->create();
+    //  	$c2 = factory(Course::class)->create();
 
- //     	// action
+    //  	// action
 
- //     	$res = $this->get('/allcourses');
+    //  	$res = $this->get('/allcourses');
 
- //     	// asserttion
+    //  	// asserttion
 
- //     	$res->assertStatus(200);
- //     	$res->assertSee($c1->title);
- //     	$res->assertSee($c1->content);
- //     	$res->assertSee($c2->title);
- //     	$res->assertSee($c2->content);
+    //  	$res->assertStatus(200);
+    //  	$res->assertSee($c1->title);
+    //  	$res->assertSee($c1->content);
+    //  	$res->assertSee($c2->title);
+    //  	$res->assertSee($c2->content);
 
- //     }
-
-
- //     public function test_user_create_course(){
- //         //arrangement
-
- //         //action
- //            $resp = $this->post('/create/course',['title'=>'hello world','content'=>'hello']);
-
- //         //assert
- //            $this->assertDatabaseHas('courses',['title'=>'hello world','content'=>'hello']);
- //            $course = Course::find(1);
- //            $this->assertEquals('hello world',$course->title);
- //            $this->assertEquals('hello',$course->content);
- //     }
+    //  }
 
 
+    //  public function test_user_create_course(){
+    //      //arrangement
+
+    //      //action
+    //         $resp = $this->post('/create/course',['title'=>'hello world','content'=>'hello']);
+
+    //      //assert
+    //         $this->assertDatabaseHas('courses',['title'=>'hello world','content'=>'hello']);
+    //         $course = Course::find(1);
+    //         $this->assertEquals('hello world',$course->title);
+    //         $this->assertEquals('hello',$course->content);
+    //  }
 
 
-}
+
+
+// }

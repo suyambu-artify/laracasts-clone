@@ -47379,6 +47379,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47408,12 +47414,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 email: this.email,
                 password: this.password,
                 remember: this.remember
+
             }).then(function (resp) {
                 location.reload();
             }).catch(function (error) {
                 _this.loading = false;
                 if (error.response.status == 422) {
                     _this.errors.push('we are sorry please enter your info again ');
+                } else {
+                    _this.errors.push('something wrong please refresh page and try again');
                 }
             });
         }
@@ -47470,7 +47479,13 @@ var render = function() {
                             color: "red"
                           }
                         },
-                        [_vm._v(_vm._s(error))]
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(error) +
+                              "\n        "
+                          )
+                        ]
                       )
                     ])
                   })

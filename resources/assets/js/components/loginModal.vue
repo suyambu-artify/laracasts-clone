@@ -14,7 +14,13 @@
 <div class="err" v-if="errors.length > 0">
         
     <ul class="list-group" v-for="error in errors">
-        <li style="text-align: center;list-style: none;margin-bottom: 13px;font-size: 17px;color:red">{{error}}</li>
+        <li style="text-align: center;
+        list-style:none;
+        margin-bottom: 13px;
+        font-size:17px;
+        color:red">
+                            {{error}}
+        </li>
     </ul>
 </div>
     
@@ -78,18 +84,24 @@ methods : {
                     }
                         return false
             },
-
             loginAttempt(){
+
                 this.errors = [],
                 this.loading = true
+
                     axios.post('/login',{
+
                         email: this.email ,
                         password: this.password ,
                         remember: this.remember
+
                     }).then( resp => {  location.reload() 
-                    }).catch( error => { this.loading = false 
+                    }).catch( error => { 
+                        this.loading = false 
                         if(error.response.status == 422){
                             this.errors.push('we are sorry please enter your info again ')
+                        }else{
+                            this.errors.push('something wrong please refresh page and try again')
                         }
                     })
             }
