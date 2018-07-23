@@ -18,12 +18,12 @@
 	// * @test
 	// */
  //    public function TeacherCreateCourseAndVisitIt(){
-    	
- //    	// arrangement 
+
+ //    	// arrangement
  //    	$course = Course::create(['title'=>'course 1 ','content'=>'Test driven development is a blablabla']);
  //    	// action
  //    	$res = $this->get("/course/".$course->id);
- //    	// assert 
+ //    	// assert
  //    	$res->assertStatus(200);
  //    	$res->assertSee($course->title);
  //    	$res->assertSee($course->content);
@@ -33,7 +33,7 @@
 
     // /**
     // *	@group wrongurl
-    // *	@test 
+    // *	@test
     // */
 
     // public function IfWrongId404(){
@@ -49,7 +49,7 @@
     //  * @test
     //  */
     //  public function testShowAllCourses(){
-    	
+
     //  	// arrangement
 
     //  	$c1 = factory(Course::class)->create();

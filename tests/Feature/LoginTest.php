@@ -15,12 +15,15 @@ class LoginTest extends TestCase
    public function test_If_Credentials_True(){
    		// arrangement
    		$user = factory(User::class)->create();
-   		// action 
+   		// action
    		// assert
    		$this->postJson('/login',['email'=>$user->email,'password'=>'secret'])
    		->assertStatus(200)
    		->assertJson(['status'=>'ok'])
    		->assertSessionHas(['success'=>'you had successfully login']);
    }
+
+
+
 
 }
