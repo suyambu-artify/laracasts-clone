@@ -6,6 +6,7 @@ use App\Mail\RegisterActiveAccount;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -52,7 +53,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
@@ -71,12 +72,35 @@ class RegisterController extends Controller
             'username' => str_slug($data['name']),
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'confirm_token'=>str_random(100)
         ]);
     }
 
     protected function registered(Request $request, $user)
     {
-        Mail::to($user)->send(new RegisterActiveAccount());
-        return redirect($this->redirectPath());
+        Mail::to($user)->send(new RegisterActiveAccount($user));
+        Auth::logout();
+        session()->flash('info','please check your email for active your account');
+        return redirect('/');
     }
+
+
+    public function confirm_registration(){
+
+        $token = request('token');
+        $user = User::where('confirm_token',$token)->first();
+       if ($user){
+           $user->confirm();
+           $this->guard()->login($user);
+           session()->flash('success','your email has been activated');
+           return redirect('/login');
+       }else{
+           session()->flash('error','this token is not valid');
+           return redirect('/');
+
+       }
+
+    }
+
+
 }

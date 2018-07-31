@@ -50,7 +50,7 @@
 
 
             <div class="col-md-6">
-                <button type="button" class="btn btn-danger" :disabled="!isValidLoginForm()" @click="loginAttempt()">
+                <button type="button" class="btn btn-danger" :disabled="!isValidLoginForm" @click="loginAttempt()">
                     Login
                 </button>
             </div>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+
 import axios from 'axios'
 export default {
     data(){
@@ -96,7 +97,7 @@ methods : {
                     password: this.password ,
                     remember: this.remember
 
-                }).then( resp => {  location.reload()
+                }).then( response => {  location.reload()
                 }).catch( error => {
                     this.loading = false
                     if(error.response.status == 422){

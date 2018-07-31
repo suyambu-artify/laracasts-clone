@@ -47370,6 +47370,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
@@ -47400,7 +47401,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password: this.password,
                 remember: this.remember
 
-            }).then(function (resp) {
+            }).then(function (response) {
                 location.reload();
             }).catch(function (error) {
                 _this.loading = false;
@@ -47596,7 +47597,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-danger",
-                  attrs: { type: "button", disabled: !_vm.isValidLoginForm() },
+                  attrs: { type: "button", disabled: !_vm.isValidLoginForm },
                   on: {
                     click: function($event) {
                       _vm.loginAttempt()

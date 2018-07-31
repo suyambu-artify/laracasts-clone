@@ -11,14 +11,11 @@ class RegisterActiveAccount extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $user;
+
+    public function __construct($user)
     {
-        //
+        return $this->user = $user;
     }
 
     /**
