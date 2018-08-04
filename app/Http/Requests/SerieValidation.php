@@ -25,27 +25,29 @@ class SerieValidation extends FormRequest
     public function rules()
     {
         return [
-//            'title'=>'required',
-//            'description'=>'required',
-//            'image'=>'required|mimes:jpeg,bmp,png'
+            'title'=>'required',
+            'description'=>'required',
+            'image'=>'required|image',
         ];
     }
-//
-//    public function ImageUpload(){
-//        $uploaded_image = $this->image;
-//        $this->image_name = str_slug($this->title).'.'.$uploaded_image->getClientOriginalExtension();
-//        $uploaded_image->storePubliclyAs('series',$this->image_name);
-//
-//        return $this;
-//    }
-//
-//    public function StoreSerie(){
-//        Serie::create([
-//            'title'=>$this->title,
-//            'slug'=>str_slug($this->title),
-//            'description'=>$this->description,
-//            'image'=>'series/'.$this->image_name,
-//        ]);
-//    }
+
+    public function uploadImage(){
+        $image = $this->image;
+        $this->img_name = str_slug($this->title).'.'.$image->getClientOriginalExtension();
+        $image->storePubliclyAs('series',$this->img_name);
+        return $this;
+    }
+
+    public function createSerie(){
+
+        Serie::create([
+            'title'=>$this->title,
+            'description'=>$this->description,
+            'slug'=>str_slug($this->title),
+            'image'=>'series/'.$this->img_name
+        ]);
+    }
+
+
 
 }

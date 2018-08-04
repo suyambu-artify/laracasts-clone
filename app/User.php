@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Config;
 
 class User extends Authenticatable
 {
@@ -35,5 +36,9 @@ class User extends Authenticatable
     public function confirm(){
         $this->confirm_token = null;
         $this->save();
+    }
+
+    public function isAdmin(){
+        return in_array($this->email,\config('udemy.admin'));
     }
 }

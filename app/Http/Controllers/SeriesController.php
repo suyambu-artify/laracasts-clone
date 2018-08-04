@@ -22,13 +22,8 @@ class SeriesController extends Controller
 
     public function store(SerieValidation $request){
 
-//        $request->ImageUpload()->StoreSerie();
-//        session()->flash('success','new series has been add');
-//        return redirect()->back();
-
-
-
-
+        $request->uploadImage()->createSerie();
+        return redirect()->back();
     }
 
 
