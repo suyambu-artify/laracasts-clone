@@ -1,7 +1,5 @@
 <?php
 
 return [
-    'admin'=>[
-        'm@gmail.com'
-    ]
+    'admin'=>['m@gmail.com']
 ];

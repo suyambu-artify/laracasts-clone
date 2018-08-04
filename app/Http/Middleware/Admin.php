@@ -19,6 +19,7 @@ class Admin
             if (auth()->user()->isAdmin()){
                 return $next($request);
             }else{
+                session()->flash('error','you are not admin');
                 return redirect('/');
             }
         }else{

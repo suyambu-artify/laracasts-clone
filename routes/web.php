@@ -11,10 +11,8 @@ Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('register/confirm','Auth\RegisterController@confirm_registration')->name('confirm_registration');
 
-Route::group(['prefix'=>'admin','middleware'=>['admin']],function (){
+Route::group(['prefix'=>'admin','middleware'=>['admin','auth']],function (){
     Route::resource('serie','SeriesController');
 });
-
-
 
 
