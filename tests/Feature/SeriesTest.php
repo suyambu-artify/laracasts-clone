@@ -75,7 +75,6 @@ class SeriesTest extends TestCase
 
     public function test_only_admin_can_create_a_serie(){
 
-        $this->withoutExceptionHandling();
 
         Storage::fake(config('filesystems.default'));
 

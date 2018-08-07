@@ -10,6 +10,6 @@ $factory->define(App\Serie::class, function (Faker $faker) {
         'title'=>$title,
         'slug'=>str_slug($title),
         'image'=>$faker->imageUrl(),
-        'description'=>$faker->paragraph(5)
+        'description'=>$faker->paragraph(2)
     ];
 });

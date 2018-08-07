@@ -23,6 +23,7 @@ class Admin
                 return redirect('/');
             }
         }else{
+            session()->flash('error','you are not admin');
             return redirect('/');
         }
     }

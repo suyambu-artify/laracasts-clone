@@ -22,14 +22,13 @@ class SeriesController extends Controller
 
     public function store(SerieValidation $request){
 
-        $request->uploadImage()->createSerie();
-        return redirect()->back();
+        return $request->uploadImage()->createSerie();
     }
 
 
-    public function show($id)
+    public function show(Serie $serie)
     {
-        //
+        return view('serie.show')->withSerie($serie);
     }
 
 

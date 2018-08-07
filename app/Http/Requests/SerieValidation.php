@@ -40,12 +40,14 @@ class SerieValidation extends FormRequest
 
     public function createSerie(){
 
-        Serie::create([
+        $serie = Serie::create([
             'title'=>$this->title,
             'description'=>$this->description,
             'slug'=>str_slug($this->title),
             'image'=>'series/'.$this->img_name
         ]);
+
+        return redirect()->route('serie.show',$serie->slug);
     }
 
 
