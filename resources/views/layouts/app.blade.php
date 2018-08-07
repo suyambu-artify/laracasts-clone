@@ -85,7 +85,6 @@
         </main>
                 @guest
                  <vue-login></vue-login>
-                 <vue-lessons></vue-lessons>
                 @endguest
     </div>
 
