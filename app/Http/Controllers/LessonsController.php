@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\lesson;
+use App\Lesson;
+use App\Serie;
 use Illuminate\Http\Request;
 
-class LessonController extends Controller
+class LessonsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,9 +34,9 @@ class LessonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Serie $serie,Request $request)
     {
-        //
+        return $serie->lessons()->create($request->all());
     }
 
     /**

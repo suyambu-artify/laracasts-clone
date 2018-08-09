@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Serie;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,7 +24,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::model('serie_by_id',Serie::class);
+        Route::bind('serie_by_id',function ($value){
+           return Serie::findOrfail($value);
+        });
 
         parent::boot();
     }

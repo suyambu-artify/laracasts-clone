@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="text-center">{{$serie->title }}</h4>
+                        <h4 class="text-center">{{$serie->title}}</h4>
 
                     </div>
                 </div>
@@ -18,8 +18,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <vue-lessons default_lessons="{{$serie->lessons}}"></vue-lessons>
-
+                        <all-lessons d_lessons="{{$serie->lessons}}" serie_id="{{$serie->id}}"></all-lessons>
 
                     </div>
                 </div>
