@@ -14,6 +14,7 @@ Route::get('register/confirm','Auth\RegisterController@confirm_registration')->n
 
 Route::group(['prefix'=>'admin','middleware'=>['admin']],function (){
     Route::resource('{serie_by_id}/lessons','LessonsController');
+    Route::get('{serie_by_id}/lessons','SeriesController@show');
     Route::resource('serie','SeriesController');
 
 });

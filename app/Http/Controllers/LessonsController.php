@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Lesson;
 use App\Serie;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateLessonRequest;
 
 class LessonsController extends Controller
 {
@@ -45,7 +47,7 @@ class LessonsController extends Controller
      * @param  \App\lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function show(lesson $lesson)
+    public function show(Lesson $lesson)
     {
         //
     }
@@ -68,9 +70,10 @@ class LessonsController extends Controller
      * @param  \App\lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, lesson $lesson)
+    public function update(Serie $serie,Lesson $lesson,UpdateLessonRequest $request)
     {
-        //
+        $lesson->update($request->all());
+        return $lesson->fresh();
     }
 
     /**
@@ -79,8 +82,9 @@ class LessonsController extends Controller
      * @param  \App\lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function destroy(lesson $lesson)
+    public function destroy(Serie $serie,Lesson $lesson)
     {
-        //
+        $lesson->delete();
+        return response()->json(['status'=>'ok']);
     }
 }

@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <all-lessons d_lessons="{{$serie->lessons}}" serie_id="{{$serie->id}}"></all-lessons>
+                        <all-lessons d_lessons="{{ $serie->lessons }}" serie_id="{{ $serie->id }}"></all-lessons>
 
                     </div>
                 </div>
