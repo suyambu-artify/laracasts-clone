@@ -44,7 +44,7 @@
 					let oldlesson = this.lessons.findIndex(lesson=>{
 						return newlesson.id = lesson.id
 					})
-					this.lessons.splice(oldlesson , 1 , newlesson)
+					this.lessons.splice(oldlesson,1,newlesson)
 				});
 
 		},

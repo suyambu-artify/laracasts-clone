@@ -47855,6 +47855,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 //
 //
 //
@@ -47895,93 +47897,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+var Lesson = function Lesson(lesson) {
+  _classCallCheck(this, Lesson);
+
+  this.title = lesson.title || '';
+  this.description = lesson.description || '';
+  this.video_id = lesson.video_id || '';
+  this.episode_number = lesson.episode_number || '';
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            title: '',
-            description: '',
-            video_id: '',
-            episode_number: '',
-            serie_id: '',
-            editing: false
-        };
+  data: function data() {
+    return {
+      lesson: {},
+      serie_id: '',
+      editing: false
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$parent.$on('new_lesson', function (serie_id) {
+      _this.serie_id = serie_id;
+      _this.editing = false;
+      _this.lesson = new Lesson({});
+      $('#NewLessonModal').modal();
+    });
+
+    this.$parent.$on('edit_lesson', function (_ref) {
+      var lesson = _ref.lesson,
+          serieId = _ref.serieId;
+
+      _this.serieId = serieId;
+      _this.editing = true;
+      _this.lesson = new Lesson(lesson);
+      _this.lessonId = lesson.id;
+      $('#NewLessonModal').modal();
+    });
+  },
+
+
+  methods: {
+    CreateLesson: function CreateLesson() {
+      var _this2 = this;
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/admin/' + this.serie_id + '/lessons', this.lesson).then(function (response) {
+        _this2.$parent.$emit('hasCreatedLesson', response.data);
+        $('#NewLessonModal').modal('hide');
+        _this2.serie_id = '';
+      }).catch(function (error) {
+        console.log(error);
+      });
     },
-    mounted: function mounted() {
-        var _this = this;
+    updateLesson: function updateLesson() {
+      var _this3 = this;
 
-        this.$parent.$on('new_lesson', function (serie_id) {
-
-            _this.editing = false;
-
-            _this.title = '';
-            _this.description = '';
-            _this.video_id = '';
-            _this.episode_number = '';
-
-            _this.serie_id = serie_id;
-            $('#NewLessonModal').modal();
-        });
-
-        this.$parent.$on('edit_lesson', function (_ref) {
-            var lesson = _ref.lesson,
-                serieId = _ref.serieId;
-
-
-            _this.editing = true;
-
-            _this.title = lesson.title;
-            _this.description = lesson.description;
-            _this.video_id = lesson.video_id;
-            _this.episode_number = lesson.episode_number;
-
-            _this.lessonId = lesson.id;
-            _this.serieId = serieId;
-            $('#NewLessonModal').modal();
-        });
-    },
-
-
-    methods: {
-        CreateLesson: function CreateLesson() {
-            var _this2 = this;
-
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/admin/' + this.serie_id + '/lessons', {
-                title: this.title,
-                description: this.description,
-                video_id: this.video_id,
-                episode_number: this.episode_number
-            }).then(function (response) {
-
-                _this2.$parent.$emit('hasCreatedLesson', response.data);
-
-                $('#NewLessonModal').modal('hide');
-                _this2.title = '';
-                _this2.description = '';
-                _this2.video_id = '';
-                _this2.episode_number = '';
-                _this2.serie_id = '';
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-        updateLesson: function updateLesson() {
-            var _this3 = this;
-
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/admin/' + this.serieId + '/lessons/' + this.lessonId, {
-                title: this.title,
-                description: this.description,
-                video_id: this.video_id,
-                episode_number: this.episode_number
-            }).then(function (response) {
-                $('#NewLessonModal').modal('hide');
-
-                _this3.$parent.$emit('LessonUpdated', response.data);
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/admin/' + this.serieId + '/lessons/' + this.lessonId, this.lesson).then(function (response) {
+        $('#NewLessonModal').modal('hide');
+        _this3.$parent.$emit('LessonUpdated', response.data);
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
+  }
 
 });
 
@@ -48023,19 +48002,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.title,
-                      expression: "title"
+                      value: _vm.lesson.title,
+                      expression: "lesson.title"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", placeholder: "title" },
-                  domProps: { value: _vm.title },
+                  domProps: { value: _vm.lesson.title },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.title = $event.target.value
+                      _vm.$set(_vm.lesson, "title", $event.target.value)
                     }
                   }
                 })
@@ -48047,19 +48026,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.description,
-                      expression: "description"
+                      value: _vm.lesson.description,
+                      expression: "lesson.description"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { placeholder: "description" },
-                  domProps: { value: _vm.description },
+                  domProps: { value: _vm.lesson.description },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.description = $event.target.value
+                      _vm.$set(_vm.lesson, "description", $event.target.value)
                     }
                   }
                 })
@@ -48071,19 +48050,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.video_id,
-                      expression: "video_id"
+                      value: _vm.lesson.video_id,
+                      expression: "lesson.video_id"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", placeholder: "video number" },
-                  domProps: { value: _vm.video_id },
+                  domProps: { value: _vm.lesson.video_id },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.video_id = $event.target.value
+                      _vm.$set(_vm.lesson, "video_id", $event.target.value)
                     }
                   }
                 })
@@ -48095,19 +48074,23 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.episode_number,
-                      expression: "episode_number"
+                      value: _vm.lesson.episode_number,
+                      expression: "lesson.episode_number"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", placeholder: "epsoide number" },
-                  domProps: { value: _vm.episode_number },
+                  domProps: { value: _vm.lesson.episode_number },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.episode_number = $event.target.value
+                      _vm.$set(
+                        _vm.lesson,
+                        "episode_number",
+                        $event.target.value
+                      )
                     }
                   }
                 })
