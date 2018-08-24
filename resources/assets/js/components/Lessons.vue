@@ -45,6 +45,13 @@
 					this.lessons.splice(lessonIndex,1,lesson)
 				})
 
+				this.$on('LessonUpdated',(newlesson)=>{
+					let oldlesson = this.lessons.findIndex(lesson=>{
+						return newlesson.id = lesson.id
+					})
+					this.lessons.splice(oldlesson,1,newlesson)
+				});
+
 		},
 		components :{
 			'new-lesson' : require('./child/New_editLesson.vue')

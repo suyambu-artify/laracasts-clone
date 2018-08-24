@@ -47770,6 +47770,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 			_this.lessons.splice(lessonIndex, 1, lesson);
 		});
+
+		this.$on('LessonUpdated', function (newlesson) {
+			var oldlesson = _this.lessons.findIndex(function (lesson) {
+				return newlesson.id = lesson.id;
+			});
+			_this.lessons.splice(oldlesson, 1, newlesson);
+		});
 	},
 
 	components: {
@@ -47953,8 +47960,12 @@ var Lesson = function Lesson(lesson) {
       var _this3 = this;
 
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/admin/' + this.serieId + '/lessons/' + this.lessonId, this.lesson).then(function (response) {
+
         _this3.$parent.$emit('LessonUpdated', response.data);
         $('#NewLessonModal').modal('hide');
+
+        $('#NewLessonModal').modal('hide');
+        _this3.$parent.$emit('LessonUpdated', response.data);
       }).catch(function (error) {
         console.log(error);
       });
