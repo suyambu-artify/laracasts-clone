@@ -47764,11 +47764,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.lessons.push(lesson);
 		});
 
-		this.$on('LessonUpdated', function (newlesson) {
-			var oldlesson = _this.lessons.findIndex(function (lesson) {
-				return newlesson.id = lesson.id;
+		this.$on('LessonUpdated', function (lesson) {
+			var lessonIndex = _this.lessons.findIndex(function (ls) {
+				return lesson.id = ls.id;
 			});
-			_this.lessons.splice(oldlesson, 1, newlesson);
+			_this.lessons.splice(lessonIndex, 1, lesson);
 		});
 	},
 
@@ -47776,7 +47776,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		'new-lesson': __webpack_require__(45)
 	},
 
-	computed: {},
 	methods: {
 		CreateLesson: function CreateLesson() {
 			this.$emit('new_lesson', this.serie_id);
@@ -47954,8 +47953,8 @@ var Lesson = function Lesson(lesson) {
       var _this3 = this;
 
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/admin/' + this.serieId + '/lessons/' + this.lessonId, this.lesson).then(function (response) {
-        $('#NewLessonModal').modal('hide');
         _this3.$parent.$emit('LessonUpdated', response.data);
+        $('#NewLessonModal').modal('hide');
       }).catch(function (error) {
         console.log(error);
       });

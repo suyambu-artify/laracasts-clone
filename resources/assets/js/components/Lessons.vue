@@ -11,7 +11,7 @@
 				<li v-for="(lesson , key) in lessons">{{ lesson.title }}
 					 <button class="btn btn-danger btn-sm" type="button" @click="DeleteLesson(lesson.id,key)">x</button>
 					 <button class="btn btn-warning btn-sm" type="button" @click="EditLesson(lesson)">edit</button>
-				</li> 
+				</li>
 			</ul>
 		</div>
 
@@ -27,34 +27,29 @@
     export default{
 
 		props : ['d_lessons','serie_id'],
-		
+
 		data (){
 			return {
 				lessons : JSON.parse(this.d_lessons)
 			}
 		},
-		
+
 		mounted (){
 
 				this.$on('hasCreatedLesson',(lesson)=>{
 					this.lessons.push(lesson)
-				});
+				})
 
-				this.$on('LessonUpdated',(newlesson)=>{
-					let oldlesson = this.lessons.findIndex(lesson=>{
-						return newlesson.id = lesson.id
-					})
-					this.lessons.splice(oldlesson,1,newlesson)
-				});
+				this.$on('LessonUpdated',(lesson)=>{
+					let lessonIndex = this.lessons.findIndex(ls => { return lesson.id = ls.id })
+					this.lessons.splice(lessonIndex,1,lesson)
+				})
 
 		},
 		components :{
 			'new-lesson' : require('./child/New_editLesson.vue')
 		},
-		
-		computed :{
-			
-		},
+
 		methods :{
 			CreateLesson() {
 				this.$emit('new_lesson',this.serie_id)
@@ -75,5 +70,5 @@
 		}
 
 	}
-	
+
 </script>

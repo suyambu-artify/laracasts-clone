@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
 	<div class="form-group">
 			<input type="text" class="form-control" placeholder="title" v-model="lesson.title">
 	</div>
@@ -38,9 +38,9 @@
 <script>
 
   import axios from 'axios'
-	
+
   class Lesson{
-    
+
     constructor(lesson){
         this.title = lesson.title || ''
         this.description = lesson.description || ''
@@ -61,18 +61,18 @@
     },
 
     mounted (){
-    
+
       this.$parent.$on('new_lesson',(serie_id)=>{
           this.serie_id = serie_id
-          this.editing = false 
+          this.editing = false
           this.lesson = new Lesson({})
           $('#NewLessonModal').modal()
 
       })
 
       this.$parent.$on('edit_lesson',({lesson,serieId})=>{
-          this.serieId = serieId          
-          this.editing = true   
+          this.serieId = serieId
+          this.editing = true
           this.lesson = new Lesson(lesson)
           this.lessonId = lesson.id
           $('#NewLessonModal').modal()
@@ -88,7 +88,6 @@
                   this.$parent.$emit('hasCreatedLesson',response.data)
                   $('#NewLessonModal').modal('hide')
                     this.serie_id = ''
-
                 }).catch(error=>{
                     console.log(error)
                 })
@@ -96,8 +95,8 @@
 
             updateLesson(){
               axios.put(`/admin/${this.serieId}/lessons/${this.lessonId}`,this.lesson).then(response => {
-                $('#NewLessonModal').modal('hide')
                 this.$parent.$emit('LessonUpdated',response.data)
+                 $('#NewLessonModal').modal('hide')
               }).catch(error=>{
                 console.log(error)
               })
