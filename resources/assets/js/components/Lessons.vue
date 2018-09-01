@@ -37,12 +37,11 @@
 		mounted (){
 
 				this.$on('hasCreatedLesson',(lesson)=>{
-					this.lessons.push(lesson)
-				})
-
-				this.$on('LessonUpdated',(lesson)=>{
-					let lessonIndex = this.lessons.findIndex(ls => { return lesson.id = ls.id })
-					this.lessons.splice(lessonIndex,1,lesson)
+					this.lessons.push(lesson);
+						window.noty({
+							message : 'lesson has created',
+							type : 'success'
+						});
 				})
 
 				this.$on('LessonUpdated',(newlesson)=>{
@@ -50,6 +49,10 @@
 						return newlesson.id = lesson.id
 					})
 					this.lessons.splice(oldlesson,1,newlesson)
+						window.noty({
+							message : 'lesson updated',
+							type : 'warning'
+						})
 				});
 
 		},
@@ -64,7 +67,11 @@
 			DeleteLesson(id,key){
 				if(confirm('are you sure to delete')){
 						axios.delete(`/admin/${this.serie_id}/lessons/${id}`).then(response =>{
-						this.lessons.splice(key ,1)
+						this.lessons.splice(key ,1);
+							window.noty({
+								message : 'lesson has been deleted',
+								type : 'danger'
+							});
 					}).catch(error=>{
 						console.log(error)
 					})

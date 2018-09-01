@@ -86,6 +86,7 @@
                 @guest
                  <vue-login></vue-login>
                 @endguest
+                <vue-noty></vue-noty>
     </div>
 
 </body>
