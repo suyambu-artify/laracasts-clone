@@ -89,8 +89,7 @@
                   $('#NewLessonModal').modal('hide')
                     this.serie_id = ''
                 }).catch(error=>{
-                  window.ErrorHandler(error)
-
+                    window.handleErrors(error)
                 })
             },
 
@@ -104,7 +103,7 @@
                 this.$parent.$emit('LessonUpdated',response.data)
 
               }).catch(error=>{
-                window.ErrorHandler(error)
+                window.handleErrors(error)
               })
             }, // final updateLesson
 

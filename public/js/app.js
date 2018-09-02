@@ -14000,10 +14000,10 @@ window.noty = function (notification) {
   window.events.$emit('notification', notification);
 };
 
-window.ErrorHandler(function (error) {
+window.handleErrors = function (error) {
   if (error.response.status == 422) {
     window.noty({
-      message: 'please enter all fields',
+      message: 'please enter all fields and try again',
       type: 'danger'
     });
   } else {
@@ -14012,7 +14012,7 @@ window.ErrorHandler(function (error) {
       type: 'warning'
     });
   }
-});
+};
 
 Vue.component('vue-login', __webpack_require__(40));
 Vue.component('all-lessons', __webpack_require__(43));
@@ -47394,18 +47394,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -47415,8 +47403,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             password: '',
             email: '',
             remember: true,
-            loading: false,
-            errors: []
+            loading: false
         };
     },
 
@@ -47443,11 +47430,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 location.reload();
             }).catch(function (error) {
                 _this.loading = false;
-                if (error.response.status == 422) {
-                    _this.errors.push('we are sorry please enter your info again ');
-                } else {
-                    _this.errors.push('something wrong please refresh page and try again');
-                }
+                window.handleErrors(error);
             });
         }
     },
@@ -47486,36 +47469,6 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
-            _vm.errors.length > 0
-              ? _c(
-                  "div",
-                  { staticClass: "err" },
-                  _vm._l(_vm.errors, function(error) {
-                    return _c("ul", { staticClass: "list-group" }, [
-                      _c(
-                        "li",
-                        {
-                          staticStyle: {
-                            "text-align": "center",
-                            "list-style": "none",
-                            "margin-bottom": "13px",
-                            "font-size": "17px",
-                            color: "red"
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(error) +
-                              "\n        "
-                          )
-                        ]
-                      )
-                    ])
-                  })
-                )
-              : _vm._e(),
-            _vm._v(" "),
             _c("div", { staticClass: "form-group row" }, [
               _c("div", { staticClass: "col-md-12" }, [
                 _c("input", {
@@ -47558,7 +47511,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text", placeholder: "******" },
+                  attrs: { type: "password", placeholder: "******" },
                   domProps: { value: _vm.password },
                   on: {
                     input: function($event) {
@@ -47819,7 +47772,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						type: 'success'
 					});
 				}).catch(function (error) {
-					window.ErrorHandler(error);
+					window.handleErrors(error);
 				});
 			}
 		},
@@ -47978,7 +47931,7 @@ var Lesson = function Lesson(lesson) {
         $('#NewLessonModal').modal('hide');
         _this2.serie_id = '';
       }).catch(function (error) {
-        window.ErrorHandler(error);
+        window.handleErrors(error);
       });
     },
     updateLesson: function updateLesson() {
@@ -47992,7 +47945,7 @@ var Lesson = function Lesson(lesson) {
         $('#NewLessonModal').modal('hide');
         _this3.$parent.$emit('LessonUpdated', response.data);
       }).catch(function (error) {
-        window.ErrorHandler(error);
+        window.handleErrors(error);
       });
     }
   }

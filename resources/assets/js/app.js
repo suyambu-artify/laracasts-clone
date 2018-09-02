@@ -9,21 +9,19 @@ window.noty = function(notification){
   window.events.$emit('notification',notification);
 }
 
-window.ErrorHandler(function(error){
+window.handleErrors = function(error){
   if (error.response.status == 422) {
     window.noty({
-      message : 'please enter all fields',
+      message : 'please enter all fields and try again',
       type : 'danger'
     })
   }else{
-    window.noty({
+  window.noty({
       message : 'something wrong refresh the page and try again',
       type : 'warning'
     })
   }
-})
-
-
+}
 
 Vue.component('vue-login', require('./components/LoginModal.vue'));
 Vue.component('all-lessons',require('./components/Lessons.vue'));

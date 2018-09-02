@@ -11,18 +11,6 @@
         </div>
         <div class="modal-body">
 
-<div class="err" v-if="errors.length > 0">
-
-    <ul class="list-group" v-for="error in errors">
-        <li style="text-align: center;
-        list-style:none;
-        margin-bottom: 13px;
-        font-size:17px;
-        color:red">
-                            {{error}}
-        </li>
-    </ul>
-</div>
 
             <div class="form-group row">
                 <div class="col-md-12">
@@ -31,7 +19,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
-                    <input type="text" class="form-control" placeholder="******" v-model="password">
+                    <input type="password" class="form-control" placeholder="******" v-model="password">
                 </div>
             </div>
 
@@ -74,7 +62,6 @@ export default {
             email : '',
             remember : true,
             loading : false,
-            errors : []
         }
     },
 
@@ -100,11 +87,8 @@ methods : {
                 }).then( response => {  location.reload()
                 }).catch( error => {
                     this.loading = false
-                    if(error.response.status == 422){
-                        this.errors.push('we are sorry please enter your info again ')
-                    }else{
-                        this.errors.push('something wrong please refresh page and try again')
-                    }
+                    window.handleErrors(error)
+
                 })
             }
 

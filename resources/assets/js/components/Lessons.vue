@@ -73,7 +73,7 @@
 								type : 'success'
 							});
 					}).catch(error=>{
-						window.ErrorHandler(error)
+						window.handleErrors(error)
 					})
 				  }
 			},
