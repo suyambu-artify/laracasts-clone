@@ -1,8 +1,6 @@
 <template>
-
     <div v-if="notification" class="alert notyalert" :class="type">
     {{notification.message}}
-
   </div>
 </template>
 
@@ -36,5 +34,6 @@ export default {
   	position: fixed;
   	right: 10px;
   	bottom: 10px;
+    z-index: 1050;
   }
 </style>

@@ -51,7 +51,7 @@
 					this.lessons.splice(oldlesson,1,newlesson)
 						window.noty({
 							message : 'lesson updated',
-							type : 'warning'
+							type : 'success'
 						})
 				});
 
@@ -70,10 +70,10 @@
 						this.lessons.splice(key ,1);
 							window.noty({
 								message : 'lesson has been deleted',
-								type : 'danger'
+								type : 'success'
 							});
 					}).catch(error=>{
-						console.log(error)
+						window.ErrorHandler(error)
 					})
 				  }
 			},

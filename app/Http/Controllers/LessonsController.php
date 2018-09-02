@@ -7,6 +7,7 @@ use App\Lesson;
 use App\Serie;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateLessonRequest;
+use App\Http\Requests\StoreLesson;
 
 class LessonsController extends Controller
 {
@@ -36,7 +37,7 @@ class LessonsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Serie $serie,Request $request)
+    public function store(Serie $serie,StoreLesson $request)
     {
         return $serie->lessons()->create($request->all());
     }
