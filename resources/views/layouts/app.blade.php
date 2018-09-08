@@ -41,6 +41,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('serie.create') }}">New Serie</a>
                             </li>
+                           <li class="nav-item">
+                                <a class="nav-link" href="{{ route('serie.index') }}">all series</a>
+                            </li>
                         @endauth
                     </ul>
 

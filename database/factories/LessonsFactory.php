@@ -7,7 +7,7 @@ $factory->define(App\Lesson::class, function (Faker $faker) {
         'title'=>$faker->sentence(4),
         'description'=>$faker->paragraph(3),
         'serie_id'=> function (){
-            return factory(\ App\Serie::class)->create()->id;
+            return factory(\App\Serie::class)->create()->id;
         },
         'video_id'=> 151390908,
         'episode_number'=> 100

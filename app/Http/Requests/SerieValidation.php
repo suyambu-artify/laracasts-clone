@@ -27,14 +27,14 @@ class SerieValidation extends FormRequest
         return [
             'title'=>'required',
             'description'=>'required',
-            'image'=>'required|image',
+            'image'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 
     public function uploadImage(){
         $image = $this->image;
         $this->img_name = str_slug($this->title).'.'.$image->getClientOriginalExtension();
-        $image->storePubliclyAs('series',$this->img_name);
+        $image->storePubliclyAs('/public/series',$this->img_name);
         return $this;
     }
 

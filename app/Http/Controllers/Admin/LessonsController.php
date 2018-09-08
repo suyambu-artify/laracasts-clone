@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 
 use App\Lesson;
@@ -8,6 +8,7 @@ use App\Serie;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateLessonRequest;
 use App\Http\Requests\StoreLesson;
+use App\Http\Controllers\Controller;
 
 class LessonsController extends Controller
 {
@@ -86,6 +87,6 @@ class LessonsController extends Controller
     public function destroy(Serie $serie,Lesson $lesson)
     {
         $lesson->delete();
-        return response()->json(['status'=>'ok']);
+        return response()->json(['status'=>'deleted']);
     }
 }

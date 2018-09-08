@@ -45,9 +45,7 @@
 				})
 
 				this.$on('LessonUpdated',(newlesson)=>{
-					let oldlesson = this.lessons.findIndex(lesson=>{
-						return newlesson.id = lesson.id
-					})
+					let oldlesson = this.lessons.findIndex(lesson => newlesson.id === lesson.id)
 					this.lessons.splice(oldlesson,1,newlesson)
 						window.noty({
 							message : 'lesson updated',

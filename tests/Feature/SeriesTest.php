@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Serie;
 use App\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -23,12 +24,14 @@ class SeriesTest extends TestCase
             'description'=>'hello world bla bla',
             'image'=>UploadedFile::fake()->image('img.png')
         ])->assertRedirect();
-        Storage::disk(config('filesystems.default'))->assertExists('series/'.str_slug('hello world').'.png');
+        Storage::disk(config('filesystems.default'))->assertExists('public/series/'.str_slug('hello world').'.png');
 
         $this->assertDatabaseHas('series',['slug'=>str_slug('hello world')]);
     }
 
     public function test_valide_title(){
+
+        $this->withExceptionHandling();
 
         $this->Admin();
 
@@ -51,6 +54,7 @@ class SeriesTest extends TestCase
     }
 
     public function test_valide_image(){
+        $this->withExceptionHandling();
 
         $this->Admin();
 
@@ -75,7 +79,6 @@ class SeriesTest extends TestCase
 
     public function test_only_admin_can_create_a_serie(){
 
-
         Storage::fake(config('filesystems.default'));
 
         $user = factory(User::class)->create();
@@ -88,12 +91,47 @@ class SeriesTest extends TestCase
 
     }
 
+     public function test_admin_can_update_serie(){
+
+         $this->Admin();
+         Storage::fake(config('filesystems.default'));
+         $serie = factory(Serie::class)->create();
+         $data = [
+            'title'=>'hello world',
+            'description'=>'loerm ipsum emit',
+            'image'=>UploadedFile::fake()->image('hello.png')
+         ];
+         $this->put(route('serie.update',$serie->slug),$data)
+             ->assertRedirect()
+             ->assertSessionHas('success','updated');
+         $serie = $serie->fresh();
+         $this->assertEquals($data['title'],$serie->title);
+         $this->assertEquals($data['description'],$serie->description);
+         Storage::disk(config('filesystems.default'))
+             ->assertExists('public/series/'.str_slug($serie->title).'.png');
+        $this->assertDatabaseHas('series',['slug'=>$serie->slug,'image'=>$serie->image]);
+
+     }
+
+     public function test_an_image_is_not_required_in_update(){
+
+       $this->Admin();
+       Storage::fake(config('filesystems.default'));
+       $this->assertEquals(0,Serie::count());
+       $serie = factory(Serie::class)->create();
+       $data = [
+          'title'=>'hello world',
+          'description'=>'loerm ipsum emit'
+       ];
+       $this->put(route('serie.update',$serie),$data)->assertRedirect();
+       $this->assertEquals(1,Serie::count());
+       $serie = $serie->fresh();
+       $this->assertEquals($data['title'],$serie->title);
+       Storage::disk(config('filesystems.default'))->assertMissing('public/series/'.$serie->image);
+       $this->assertDatabaseHas('series',['slug'=>$serie->slug]);
+     }
+
+
+
 
 }
-
-
-
-
-
-
-

@@ -47743,7 +47743,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 		this.$on('LessonUpdated', function (newlesson) {
 			var oldlesson = _this.lessons.findIndex(function (lesson) {
-				return newlesson.id = lesson.id;
+				return newlesson.id === lesson.id;
 			});
 			_this.lessons.splice(oldlesson, 1, newlesson);
 			window.noty({
