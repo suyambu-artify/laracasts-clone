@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Config;
+use Redis;
 
 class User extends Authenticatable
 {
@@ -42,8 +43,14 @@ class User extends Authenticatable
         return in_array($this->email,\config('udemy.admin'));
     }
 
-
-
-
+    public function hascompletelesson($lesson){
+        Redis::sadd("user.{$this->id}.serie.{$lesson->serie->id}",$lesson->id);
+    }
 
 }
+ 
+
+
+
+
+

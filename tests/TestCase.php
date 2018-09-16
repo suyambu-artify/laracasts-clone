@@ -2,9 +2,10 @@
 
 namespace Tests;
 
-use App\User;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Config;
+use App\User;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -18,6 +19,10 @@ abstract class TestCase extends BaseTestCase
 
         $this->actingAs($user);
 
+    }
+
+    public function flushRedis(){
+        Redis::flushall();
     }
 
 }
