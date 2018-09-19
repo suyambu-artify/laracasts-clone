@@ -52,14 +52,11 @@ class UserTest extends TestCase
 
 		$this->withoutExceptionHandling();
 		$this->flushRedis();
-
 		$user = factory(User::class)->create();
 		$lesson = factory(Lesson::class)->create();
 		$lesson2 = factory(Lesson::class)->create(['serie_id'=>1]);
 		$lesson3 = factory(Lesson::class)->create();
-
 		$user->hascompletelesson($lesson2);
-
 		$this->assertTrue($user->hasstartserie($lesson->serie));
 		$this->assertFalse($user->hasstartserie($lesson3->serie));
 
@@ -68,22 +65,16 @@ class UserTest extends TestCase
 	public function test_can_get_completed_lessons_for_serie(){
 
 		$this->flushRedis();
-
 		$user = factory(User::class)->create();
 		$lesson = factory(Lesson::class)->create();
 		$lesson2 = factory(Lesson::class)->create(['serie_id'=>1]);
 		$lesson3 = factory(Lesson::class)->create(['serie_id'=>1]);
-
 		$user->hascompletelesson($lesson);
 		$user->hascompletelesson($lesson2);
-
 		$completedlessons = $user->getcompletedlessons($lesson->serie);
-
 		$this->assertInstanceOf(\Illuminate\Support\Collection::class, $completedlessons);
 		$this->assertInstanceOf(Lesson::class, $completedlessons->random());
-		
 		$completedLessonsIds = $completedlessons->pluck('id')->all();
-
 		$this->assertTrue(in_array($lesson->id,$completedLessonsIds));
 		$this->assertTrue(in_array($lesson2->id,$completedLessonsIds));
 		$this->assertFalse(in_array($lesson3->id,$completedLessonsIds));

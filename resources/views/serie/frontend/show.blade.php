@@ -27,7 +27,7 @@
                 @hasstartserie($serie)
                 <a href="" class="btn btn-lg btn-primary">Continue learning</a>
                 @else
-                <a href="" class="btn btn-lg btn-primary">Start learning</a>
+                <a href="{{route('goto_serie',$serie->slug)}}" class="btn btn-lg btn-primary">Start learning</a>
                 @endhasstartserie
             @endauth
             @guest

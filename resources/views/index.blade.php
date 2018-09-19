@@ -11,7 +11,7 @@
 				  <div class="card-body">
 				    <h5 class="card-title">{{ $serie->title }}</h5>
 				    <p class="card-text">{{ $serie->description }}</p>
-					<a href="{{ route('showserie',$serie->slug) }}" class="btn btn-primary">start serie</a>
+					<a href="{{ route('show_serie',$serie->slug) }}" class="btn btn-primary">start serie</a>
 				  </div>
 				</div>
 			 </div>
