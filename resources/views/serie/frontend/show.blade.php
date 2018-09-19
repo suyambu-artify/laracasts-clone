@@ -4,7 +4,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    opacity : 0.1;
+    opacity : 0.3;
     position: relative;
 }
 #button{
@@ -27,7 +27,7 @@
                 @hasstartserie($serie)
                 <a href="" class="btn btn-lg btn-primary">Continue learning</a>
                 @else
-                <a href="{{route('goto_serie',$serie->slug)}}" class="btn btn-lg btn-primary">Start learning</a>
+        <a href="{{route('goto_serie',$serie->slug)}}" class="btn btn-lg btn-primary">Start learning</a>
                 @endhasstartserie
             @endauth
             @guest
