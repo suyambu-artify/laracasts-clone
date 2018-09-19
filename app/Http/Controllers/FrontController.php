@@ -12,4 +12,9 @@ class FrontController extends Controller
 		$series = Serie::all();
 		return view('index')->withSeries($series);
     }
+
+    public function showserie(Serie $serie){
+      return view('serie.frontend.show',compact('serie',$serie));
+    }
+    
 }

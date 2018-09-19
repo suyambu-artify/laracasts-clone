@@ -13,13 +13,13 @@ class SeriesController extends Controller
     public function index()
     {
         $series = Serie::all();
-        return view('serie.index')->with('series',$series);
+        return view('serie.backend.index')->with('series',$series);
     }
 
 
     public function create()
     {
-        return view('serie.create');
+        return view('serie.backend.create');
     }
 
     public function store(SerieValidation $request){
@@ -30,13 +30,13 @@ class SeriesController extends Controller
 
     public function show(Serie $serie)
     {
-        return view('serie.show')->withSerie($serie);
+        return view('serie.backend.show')->withSerie($serie);
     }
 
 
     public function edit(Serie $serie)
     {
-        return view('serie.edit')->withSerie($serie);
+        return view('serie.backend.edit')->withSerie($serie);
     }
 
 

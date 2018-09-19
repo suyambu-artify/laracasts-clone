@@ -22,7 +22,7 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('home', 'HomeController@index')->name('home');
 Route::get('register/confirm','Auth\RegisterController@confirm_registration')->name('confirm_registration');
 
-
+Route::get('show/serie/{serie}','FrontController@showserie')->name('showserie');
 
 
 
