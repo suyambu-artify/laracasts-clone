@@ -42,6 +42,11 @@ class SeriesController extends Controller
 
     public function update(Serie $serie,Request $request){
 
+        $request->validate([
+            'title'=>'required',
+            'description'=>'required',
+            'image'=>'required'
+        ]);
         // delete old image
         if ($request->hasFile('image')){
             $oldimg = public_path("public/series/{$serie->image}");
@@ -52,10 +57,8 @@ class SeriesController extends Controller
             $name_img = str_slug($request->title).'.'.$image->getClientOriginalExtension();
             $image->storePubliclyAs('/public/series',$name_img);
         }
-        $name_img = 'default.png';
         $serie->title = $request->title;
         $serie->description = $request->description;
-        $serie->image = '/series/'.$name_img;
         $serie->slug = str_slug($request->title);
         $serie->save();
         session()->flash('success','updated');

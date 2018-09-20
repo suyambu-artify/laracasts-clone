@@ -113,23 +113,23 @@ class SeriesTest extends TestCase
 
      }
 
-     public function test_an_image_is_not_required_in_update(){
+     // public function test_an_image_is_not_required_in_update(){
 
-       $this->Admin();
-       Storage::fake(config('filesystems.default'));
-       $this->assertEquals(0,Serie::count());
-       $serie = factory(Serie::class)->create();
-       $data = [
-          'title'=>'hello world',
-          'description'=>'loerm ipsum emit'
-       ];
-       $this->put(route('serie.update',$serie),$data)->assertRedirect();
-       $this->assertEquals(1,Serie::count());
-       $serie = $serie->fresh();
-       $this->assertEquals($data['title'],$serie->title);
-       Storage::disk(config('filesystems.default'))->assertMissing('public/series/'.$serie->image);
-       $this->assertDatabaseHas('series',['slug'=>$serie->slug]);
-     }
+     //   $this->Admin();
+     //   Storage::fake(config('filesystems.default'));
+     //   $this->assertEquals(0,Serie::count());
+     //   $serie = factory(Serie::class)->create();
+     //   $data = [
+     //      'title'=>'hello world',
+     //      'description'=>'loerm ipsum emit'
+     //   ];
+     //   $this->put(route('serie.update',$serie),$data)->assertRedirect();
+     //   $this->assertEquals(1,Serie::count());
+     //   $serie = $serie->fresh();
+     //   $this->assertEquals($data['title'],$serie->title);
+     //   Storage::disk(config('filesystems.default'))->assertMissing('public/series/'.$serie->image);
+     //   $this->assertDatabaseHas('series',['slug'=>$serie->slug]);
+     // }
 
 
 

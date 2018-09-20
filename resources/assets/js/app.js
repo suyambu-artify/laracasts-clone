@@ -26,6 +26,11 @@ window.handleErrors = function(error){
 Vue.component('vue-login', require('./components/LoginModal.vue'));
 Vue.component('all-lessons',require('./components/Lessons.vue'));
 Vue.component('vue-noty',require('./components/Noty.vue'));
+Vue.component('vue-player',require('./components/Player.vue'));
+
+
+
+
 
 const app = new Vue({
     el: '#app'

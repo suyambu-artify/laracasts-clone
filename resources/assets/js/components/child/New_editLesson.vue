@@ -98,10 +98,7 @@
 
                 this.$parent.$emit('LessonUpdated',response.data)
                  $('#NewLessonModal').modal('hide')
-
-                $('#NewLessonModal').modal('hide')
-                this.$parent.$emit('LessonUpdated',response.data)
-
+                 
               }).catch(error=>{
                 window.handleErrors(error)
               })

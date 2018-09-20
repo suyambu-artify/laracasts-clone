@@ -17,14 +17,11 @@ class UserTest extends TestCase
 	public function test_user_has_complete_lesson(){
 		
 		$this->flushRedis();
-		
 		$user = factory(User::class)->create();
 		$lesson = factory(Lesson::class)->create();
 		$lesson2 = factory(Lesson::class)->create(['serie_id'=>1]);
-		
 		$user->hascompletelesson($lesson);
 		$user->hascompletelesson($lesson2);
-
 		$this->assertEquals(Redis::smembers("user.1.serie.1"), [1,2]);
 
 	}
@@ -38,12 +35,9 @@ class UserTest extends TestCase
 		$lesson2 = factory(Lesson::class)->create(['serie_id'=>1]);
 		factory(Lesson::class)->create(['serie_id'=>1]);
 		factory(Lesson::class)->create(['serie_id'=>1]);
-
 		$user->hascompletelesson($lesson);
 		$user->hascompletelesson($lesson2);
-		
 		$this->assertEquals($user->calcpercentage($lesson->serie), 50);
-
 		// completed lesson count 
 		$this->assertEquals($user->getnumbercompletedlessons($lesson->serie),2);
 	}
