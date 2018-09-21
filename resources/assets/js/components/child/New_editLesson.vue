@@ -95,7 +95,6 @@
 
             updateLesson(){
               axios.put(`/admin/${this.serieId}/lessons/${this.lessonId}`,this.lesson).then(response => {
-
                 this.$parent.$emit('LessonUpdated',response.data)
                  $('#NewLessonModal').modal('hide')
                  

@@ -11,4 +11,17 @@ class Lesson extends Model
     public function serie(){
         return $this->belongsTo(Serie::class);
     }
+
+    public function nextLesson(){
+    	return $this->serie->lessons()->where('episode_number','>',$this->episode_number)
+    	->orderBy('episode_number','asc')
+    	->first();
+    }
+
+    public function prevLesson(){
+    	return $this->serie->lessons()->where('episode_number','<',$this->episode_number)
+    	->orderBy('episode_number','desc')
+    	->first();
+    }
+
 }
