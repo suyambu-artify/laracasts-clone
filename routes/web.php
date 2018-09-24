@@ -16,7 +16,6 @@ $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 $this->post('password/reset', 'Auth\ResetPasswordController@reset');
-// final auth routes
 
 
 Route::get('home', 'HomeController@index')->name('home');
@@ -27,6 +26,7 @@ Route::group(['prefix'=>'frontend'],function(){
     Route::get('show/serie/{serie}','FrontController@showserie')->name('show_serie');
     Route::get('go_to_serie/{serie}','FrontController@goto_serie')->name('goto_serie');
     Route::get('watch/serie/{serie}/lesson/{lesson}','FrontController@watch')->name('watch_serie');
+    Route::post('complete/lesson/{lesson}','FrontController@completelesson')->name('lessonhaswatched');
 });
 
 

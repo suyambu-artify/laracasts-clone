@@ -25,4 +25,10 @@ class FrontController extends Controller
     public function watch(Serie $serie,Lesson $lesson){
       return view('serie.frontend.watch')->with(['serie'=>$serie,'lesson'=>$lesson]);
     }
+
+    public function completelesson(Lesson $lesson){
+          auth()->user()->completelesson($lesson);
+          return response()->json(['status'=>'ok']);
+    }
+
 }

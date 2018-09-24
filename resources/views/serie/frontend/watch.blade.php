@@ -14,21 +14,34 @@ text-align: center;
 <div class="card-body">
     <div class="controllers_lesson">
        
-        @if($lesson->prevLesson())
-        <a href="{{ route('watch_serie',[$serie->slug,$lesson->prevLesson()->id]) }}" class="btn btn-success">previous</a>
+       @php
+        $nextlesson = $lesson->nextLesson();
+        $prevlesson = $lesson->prevLesson();
+       @endphp
+
+        @if($prevlesson)
+        <a href="{{ route('watch_serie',[$serie->slug,$prevlesson->id]) }}" class="btn btn-success">previous</a>
         @else
         <button class="btn btn-success" disabled="disabled">previous</button>
         @endif
 
-        @if($lesson->nextLesson())
-        <a href="{{ route('watch_serie',[$serie->slug,$lesson->nextLesson()->id]) }}" class="btn btn-success">next</a>
+        @if($nextlesson)
+        <a href="{{ route('watch_serie',[$serie->slug,$nextlesson->id]) }}" class="btn btn-success">next</a>
         @else
         <button class="btn btn-success" disabled="disabled">next</button>
         @endif
 
     </div>
     <br>
-    <vue-player default_lesson="{{$lesson}}"></vue-player>
+    
+    <vue-player default_lesson="{{$lesson}}"
+
+      @if($nextlesson)
+        next_lesson="{{ route('watch_serie',[$serie->slug,$nextlesson->id]) }}"
+     @endif >
+         
+     </vue-player>
+     
 </div>
 <h1>{{$lesson->title}}</h1>
  <p>{{$lesson->description}}</p>
@@ -40,11 +53,15 @@ text-align: center;
 <div class="card-body">
 <ul class="list-group">
     @foreach($serie->getOrderdlessons() as $l)
-        @if($l->id == $lesson->id)
-    <li class="list-group-item active"><a class="text-white" href="{{route('watch_serie',[$serie->slug,$l->id])}}">{{$l->title}}</a></li>
-    @else
-        <li class="list-group-item"><a  href="{{route('watch_serie',[$serie->slug,$l->id])}}" >{{$l->title}}</a></li>
-        @endif        
+        <li class="list-group-item @if($l->id == $lesson->id) active @endif">
+           
+            <a style="color:#000;" href="{{route('watch_serie',[$serie->slug,$l->id])}}" >{{$l->title}}</a>
+            @auth
+            <div class=" d-flex justify-content-end">
+                @if(auth()->user()->hasCompleteLesson($l))<span class="badge badge-danger">completed</span>@endif
+            </div>
+            @endauth
+        </li>
     @endforeach
 </ul>
 </div>
