@@ -1,10 +1,14 @@
-@component('mail::message')
-# Introduction
 
-The body of your message.
+
+@component('mail::message')
+# activate your account 
+
+> Your account has been Registred! left one step to acivate .
+
+### please click the button for active your account     
 
 @component('mail::button', ['url' => route('confirm_registration') . '?token=' . $user->confirm_token ])
-Button Text
+active account
 @endcomponent
 
 Thanks,<br>

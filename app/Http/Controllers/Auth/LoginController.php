@@ -41,8 +41,13 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        session()->flash('success','you had successfully login');
+      if($request->wantsJson()){
+        session()->flash('success', 'you had successfully login');
         return response()->json(['status'=>'ok']);
+      }else{
+          return redirect('/home');
+      }
+    
     }
 
 
@@ -50,7 +55,4 @@ class LoginController extends Controller
     {
         throw new AuthFailed;
     }
-
-
-
 }

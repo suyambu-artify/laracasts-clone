@@ -6,34 +6,34 @@
 
 <script>
 export default {
+  created() {
+    window.events.$on("notification", payload => {
+      this.notification = payload;
+      setTimeout(() => {
+        this.notification = null;
+      }, 2500);
+    });
+  },
 
-    created(){
-      window.events.$on('notification',(payload)=>{
-        this.notification = payload;
-        setTimeout(()=>{this.notification=null},2500)
-      })
+  data() {
+    return {
+      notification: null
+    };
+  },
 
-    },
-
-    data(){
-      return {
-        notification:null,
-      }
-    },
-
-    computed : {
-        type(){
-          return `alert-${this.notification.type}`
-        }
+  computed: {
+    type() {
+      return `alert-${this.notification.type}`;
     }
-}
+  }
+};
 </script>
 
 <style>
-  .notyalert {
-  	position: fixed;
-  	right: 10px;
-  	bottom: 10px;
-    z-index: 1050;
-  }
+.notyalert {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 1050;
+}
 </style>

@@ -11,18 +11,17 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function Admin(){
-
+    public function Admin()
+    {
         $user = factory(User::class)->create();
 
-        Config::push('udemy.admin',$user->email);
+        Config::push('udemy.admin', $user->email);
 
         $this->actingAs($user);
-
     }
 
-    public function flushRedis(){
+    public function flushRedis()
+    {
         Redis::flushall();
     }
-
 }

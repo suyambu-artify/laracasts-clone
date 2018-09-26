@@ -53,52 +53,48 @@
 </template>
 
 <script>
-
-import axios from 'axios'
+import axios from "axios";
 export default {
-    data(){
-        return {
-            password : '',
-            email : '',
-            remember : true,
-            loading : false,
-        }
+  data() {
+    return {
+      password: "",
+      email: "",
+      remember: true,
+      loading: false
+    };
+  },
+
+  methods: {
+    isValidEmail() {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+        return true;
+      }
+      return false;
     },
 
-methods : {
-             isValidEmail(){
-                    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
-                      return true
-                     }
-                      return false
-             },
+    loginAttempt() {
+      this.loading = true;
 
-            loginAttempt(){
-
-                this.errors = [],
-                this.loading = true
-
-                axios.post('/login',{
-
-                    email: this.email ,
-                    password: this.password ,
-                    remember: this.remember
-
-                }).then( response => {  location.reload()
-                }).catch( error => {
-                    this.loading = false
-                    window.handleErrors(error)
-
-                })
-            }
-
-},
-
-computed : {
-        isValidLoginForm(){
-            return this.isValidEmail() && this.password && !this.loading
+      axios
+        .post("/login", {
+          email: this.email,
+          password: this.password,
+          remember: this.remember
+        })
+        .then(response => {
+          location.reload();
+        })
+        .catch(error => {
+          this.loading = false;
+          window.handleErrors(error);
+        });
     }
-}
+  },
 
-}
+  computed: {
+    isValidLoginForm() {
+      return this.isValidEmail() && this.password && !this.loading;
+    }
+  }
+};
 </script>

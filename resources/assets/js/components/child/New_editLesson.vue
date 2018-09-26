@@ -36,75 +36,68 @@
 
 </template>
 <script>
+import axios from "axios";
 
-  import axios from 'axios'
-
-  class Lesson{
-
-    constructor(lesson){
-        this.title = lesson.title || ''
-        this.description = lesson.description || ''
-        this.video_id =  lesson.video_id || ''
-        this.episode_number =  lesson.episode_number || ''
-    }
-
+class Lesson {
+  constructor(lesson) {
+    this.title = lesson.title || "";
+    this.description = lesson.description || "";
+    this.video_id = lesson.video_id || "";
+    this.episode_number = lesson.episode_number || "";
   }
+}
 
-  export default{
+export default {
+  data() {
+    return {
+      lesson: {},
+      serie_id: "",
+      editing: false
+    };
+  },
 
-    data (){
-      return{
-            lesson : {},
-            serie_id : '',
-            editing : false
-      }
+  mounted() {
+    this.$parent.$on("new_lesson", serie_id => {
+      this.serie_id = serie_id;
+      this.editing = false;
+      this.lesson = new Lesson({});
+      $("#NewLessonModal").modal();
+    });
+
+    this.$parent.$on("edit_lesson", ({ lesson, serieId }) => {
+      this.serieId = serieId;
+      this.editing = true;
+      this.lesson = new Lesson(lesson);
+      this.lessonId = lesson.id;
+      $("#NewLessonModal").modal();
+    });
+  },
+
+  methods: {
+    CreateLesson() {
+      axios
+        .post(`/admin/${this.serie_id}/lessons`, this.lesson)
+        .then(response => {
+          this.$parent.$emit("hasCreatedLesson", response.data);
+          $("#NewLessonModal").modal("hide");
+          this.serie_id = "";
+        })
+        .catch(error => {
+          window.handleErrors(error);
+        });
     },
 
-    mounted (){
-
-      this.$parent.$on('new_lesson',(serie_id)=>{
-          this.serie_id = serie_id
-          this.editing = false
-          this.lesson = new Lesson({})
-          $('#NewLessonModal').modal()
-
-      })
-
-      this.$parent.$on('edit_lesson',({lesson,serieId})=>{
-          this.serieId = serieId
-          this.editing = true
-          this.lesson = new Lesson(lesson)
-          this.lessonId = lesson.id
-          $('#NewLessonModal').modal()
-
-      })
-
-    },
-
-    methods :{
-
-            CreateLesson() {
-                axios.post(`/admin/${this.serie_id}/lessons`,this.lesson).then(response => {
-                  this.$parent.$emit('hasCreatedLesson',response.data)
-                  $('#NewLessonModal').modal('hide')
-                    this.serie_id = ''
-                }).catch(error=>{
-                    window.handleErrors(error)
-                })
-            },
-
-            updateLesson(){
-              axios.put(`/admin/${this.serieId}/lessons/${this.lessonId}`,this.lesson).then(response => {
-                this.$parent.$emit('LessonUpdated',response.data)
-                 $('#NewLessonModal').modal('hide')
-                 
-              }).catch(error=>{
-                window.handleErrors(error)
-              })
-            }, // final updateLesson
-
-        },
-
-
-	}
+    updateLesson() {
+      axios
+        .put(`/admin/${this.serieId}/lessons/${this.lessonId}`, this.lesson)
+        .then(response => {
+          this.$parent.$emit("LessonUpdated", response.data);
+          $("#NewLessonModal").modal("hide");
+        })
+        .catch(error => {
+          window.handleErrors(error);
+        });
+    } // final updateLesson
+  }
+};
 </script>

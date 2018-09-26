@@ -34,6 +34,8 @@ text-align: center;
     </div>
     <br>
     
+
+
     <vue-player default_lesson="{{$lesson}}"
 
       @if($nextlesson)

@@ -15,15 +15,15 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check()){
-            if (auth()->user()->isAdmin()){
+        if (auth()->check()) {
+            if (auth()->user()->isAdmin()) {
                 return $next($request);
-            }else{
-                session()->flash('error','you are not admin');
+            } else {
+                session()->flash('error', 'you are not admin');
                 return redirect('/');
             }
-        }else{
-            session()->flash('error','you are not admin');
+        } else {
+            session()->flash('error', 'you are not admin');
             return redirect('/');
         }
     }
