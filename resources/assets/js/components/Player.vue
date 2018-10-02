@@ -40,7 +40,7 @@ export default {
 
     lessonCompleted() {
       axios
-        .post(`/frontend/complete/lesson/${this.lesson.id}`, {})
+        .post(`/user/complete/lesson/${this.lesson.id}`, {})
         .then(response => {
           this.notilessoncompleted();
         })

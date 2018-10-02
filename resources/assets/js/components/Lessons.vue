@@ -8,7 +8,7 @@
 
 		<div class="cls_all_lessons">
 			<ul>
-				<li v-for="(lesson , key) in lessons">{{ lesson.title }}
+				<li v-for="(lesson , key) in lessons" :key="lesson.id">{{ lesson.title }}
 					 <button class="btn btn-danger btn-sm" type="button" @click="DeleteLesson(lesson.id,key)">x</button>
 					 <button class="btn btn-warning btn-sm" type="button" @click="EditLesson(lesson)">edit</button>
 				</li>

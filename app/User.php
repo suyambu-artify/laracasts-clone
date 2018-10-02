@@ -44,5 +44,9 @@ class User extends Authenticatable
         return in_array($this->email,\config('udemy.admin'));
     }
 
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 
 }

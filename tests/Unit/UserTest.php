@@ -43,7 +43,6 @@ class UserTest extends TestCase
 
 	public function test_a_user_has_start_a_serie(){
 
-		$this->withoutExceptionHandling();
 		$this->flushRedis();
 		$user = factory(User::class)->create();
 		$lesson = factory(Lesson::class)->create();
@@ -75,7 +74,6 @@ class UserTest extends TestCase
 	}
 
 	public function test_check_if_user_has_completed_lesson(){
-		$this->withoutExceptionHandling();
 		$this->flushRedis();
 		$user = factory(User::class)->create();
 		$lesson = factory(Lesson::class)->create();
@@ -85,6 +83,43 @@ class UserTest extends TestCase
 		$this->assertFalse($user->hasCompleteLesson($lesson2));
 	}
 
+	public function test_series_has_been_watched(){
+        $this->flushRedis();
+        $user = factory(User::class)->create();
+		$lesson = factory(Lesson::class)->create();
+		$lesson2 = factory(Lesson::class)->create(['serie_id'=>1]);
+		$lesson3 = factory(Lesson::class)->create();
+		$lesson4 = factory(Lesson::class)->create(['serie_id'=>2]);
+		$lesson5 = factory(Lesson::class)->create();
+		$lesson6 = factory(Lesson::class)->create(['serie_id'=>3]);
+		$user->completelesson($lesson);
+		$user->completelesson($lesson3);
+		$seriesbeingwatched = $user->seriesbeingwatched();
+		$this->assertInstanceOf(\Illuminate\Support\Collection::class,$seriesbeingwatched);
+		$this->assertInstanceOf(\App\Serie::class,$seriesbeingwatched->random());
+		$idseriesbeenwatched = $seriesbeingwatched->pluck('id')->all();
+        $this->assertTrue(in_array($lesson->serie->id,$idseriesbeenwatched));
+        $this->assertTrue(in_array($lesson3->serie->id,$idseriesbeenwatched));
+        $this->assertFalse(in_array($lesson5->serie->id,$idseriesbeenwatched));
+	}
+
+	public function test_get_total_completed_lessons(){
+
+        $this->flushRedis();
+        $user = factory(User::class)->create();
+        $lesson = factory(Lesson::class)->create();
+        $lesson2 = factory(Lesson::class)->create(['serie_id'=>1]);
+        $lesson3 = factory(Lesson::class)->create();
+        $lesson4 = factory(Lesson::class)->create(['serie_id'=>2]);
+        $lesson5 = factory(Lesson::class)->create();
+        $lesson6 = factory(Lesson::class)->create(['serie_id'=>3]);
+        $user->completelesson($lesson);
+        $user->completelesson($lesson3);
+        $user->completelesson($lesson5);
+        $this->assertEquals(3,$user->gettotalofcompledlessons());
+
+    }
 
 
-}
+	
+}	

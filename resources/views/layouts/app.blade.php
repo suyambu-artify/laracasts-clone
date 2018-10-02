@@ -38,12 +38,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
+                            @isAdmin
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('serie.create') }}">New Serie</a>
                             </li>
                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('serie.index') }}">all series</a>
                             </li>
+                            @else
+
+                            @endisAdmin
                         @endauth
                     </ul>
 

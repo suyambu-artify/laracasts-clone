@@ -16,6 +16,7 @@ class WatchLessonTest extends TestCase
 
         $this->withoutExceptionHandling();
 
+        $this->flushRedis();
         $user = factory(User::class)->create();
         $this->actingAs($user);
         $lesson = factory(Lesson::class)->create();

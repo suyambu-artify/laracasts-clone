@@ -47397,51 +47397,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            password: '',
-            email: '',
-            remember: true,
-            loading: false
-        };
+  data: function data() {
+    return {
+      password: "",
+      email: "",
+      remember: true,
+      loading: false
+    };
+  },
+
+
+  methods: {
+    isValidEmail: function isValidEmail() {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+        return true;
+      }
+      return false;
     },
+    loginAttempt: function loginAttempt() {
+      var _this = this;
 
+      this.loading = true;
 
-    methods: {
-        isValidEmail: function isValidEmail() {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
-                return true;
-            }
-            return false;
-        },
-        loginAttempt: function loginAttempt() {
-            var _this = this;
-
-            this.errors = [], this.loading = true;
-
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/login', {
-
-                email: this.email,
-                password: this.password,
-                remember: this.remember
-
-            }).then(function (response) {
-                location.reload();
-            }).catch(function (error) {
-                _this.loading = false;
-                window.handleErrors(error);
-            });
-        }
-    },
-
-    computed: {
-        isValidLoginForm: function isValidLoginForm() {
-            return this.isValidEmail() && this.password && !this.loading;
-        }
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("/login", {
+        email: this.email,
+        password: this.password,
+        remember: this.remember
+      }).then(function (response) {
+        location.reload();
+      }).catch(function (error) {
+        _this.loading = false;
+        window.handleErrors(error);
+      });
     }
+  },
 
+  computed: {
+    isValidLoginForm: function isValidLoginForm() {
+      return this.isValidEmail() && this.password && !this.loading;
+    }
+  }
 });
 
 /***/ }),
@@ -47721,68 +47717,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["d_lessons", "serie_id"],
 
-	props: ['d_lessons', 'serie_id'],
+  components: {
+    "new-lesson": __webpack_require__(45)
+  },
 
-	data: function data() {
-		return {
-			lessons: JSON.parse(this.d_lessons)
-		};
-	},
-	mounted: function mounted() {
-		var _this = this;
+  data: function data() {
+    return {
+      lessons: JSON.parse(this.d_lessons)
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
 
-		this.$on('hasCreatedLesson', function (lesson) {
-			_this.lessons.push(lesson);
-			window.noty({
-				message: 'lesson has created',
-				type: 'success'
-			});
-		});
+    this.$on("hasCreatedLesson", function (lesson) {
+      _this.lessons.push(lesson);
+      window.noty({
+        message: "lesson has created",
+        type: "success"
+      });
+    });
 
-		this.$on('LessonUpdated', function (newlesson) {
-			var oldlesson = _this.lessons.findIndex(function (lesson) {
-				return newlesson.id === lesson.id;
-			});
-			_this.lessons.splice(oldlesson, 1, newlesson);
-			window.noty({
-				message: 'lesson updated',
-				type: 'success'
-			});
-		});
-	},
+    this.$on("LessonUpdated", function (newlesson) {
+      var oldlesson = _this.lessons.findIndex(function (lesson) {
+        return newlesson.id === lesson.id;
+      });
+      _this.lessons.splice(oldlesson, 1, newlesson);
+      window.noty({
+        message: "lesson updated",
+        type: "success"
+      });
+    });
+  },
 
-	components: {
-		'new-lesson': __webpack_require__(45)
-	},
 
-	methods: {
-		CreateLesson: function CreateLesson() {
-			this.$emit('new_lesson', this.serie_id);
-		},
-		DeleteLesson: function DeleteLesson(id, key) {
-			var _this2 = this;
+  methods: {
+    CreateLesson: function CreateLesson() {
+      this.$emit("new_lesson", this.serie_id);
+    },
+    DeleteLesson: function DeleteLesson(id, key) {
+      var _this2 = this;
 
-			if (confirm('are you sure to delete')) {
-				__WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('/admin/' + this.serie_id + '/lessons/' + id).then(function (response) {
-					_this2.lessons.splice(key, 1);
-					window.noty({
-						message: 'lesson has been deleted',
-						type: 'success'
-					});
-				}).catch(function (error) {
-					window.handleErrors(error);
-				});
-			}
-		},
-		EditLesson: function EditLesson(lesson) {
-			var serieId = this.serie_id;
-			this.$emit('edit_lesson', { lesson: lesson, serieId: serieId });
-		}
-	}
-
+      if (confirm("are you sure to delete")) {
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete("/admin/" + this.serie_id + "/lessons/" + id).then(function (response) {
+          _this2.lessons.splice(key, 1);
+          window.noty({
+            message: "lesson has been deleted",
+            type: "success"
+          });
+        }).catch(function (error) {
+          window.handleErrors(error);
+        });
+      }
+    },
+    EditLesson: function EditLesson(lesson) {
+      var serieId = this.serie_id;
+      this.$emit("edit_lesson", { lesson: lesson, serieId: serieId });
+    }
+  }
 });
 
 /***/ }),
@@ -47882,35 +47876,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-
 var Lesson = function Lesson(lesson) {
   _classCallCheck(this, Lesson);
 
-  this.title = lesson.title || '';
-  this.description = lesson.description || '';
-  this.video_id = lesson.video_id || '';
-  this.episode_number = lesson.episode_number || '';
+  this.title = lesson.title || "";
+  this.description = lesson.description || "";
+  this.video_id = lesson.video_id || "";
+  this.episode_number = lesson.episode_number || "";
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       lesson: {},
-      serie_id: '',
+      serie_id: "",
       editing: false
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.$parent.$on('new_lesson', function (serie_id) {
+    this.$parent.$on("new_lesson", function (serie_id) {
       _this.serie_id = serie_id;
       _this.editing = false;
       _this.lesson = new Lesson({});
-      $('#NewLessonModal').modal();
+      $("#NewLessonModal").modal();
     });
 
-    this.$parent.$on('edit_lesson', function (_ref) {
+    this.$parent.$on("edit_lesson", function (_ref) {
       var lesson = _ref.lesson,
           serieId = _ref.serieId;
 
@@ -47918,7 +47911,7 @@ var Lesson = function Lesson(lesson) {
       _this.editing = true;
       _this.lesson = new Lesson(lesson);
       _this.lessonId = lesson.id;
-      $('#NewLessonModal').modal();
+      $("#NewLessonModal").modal();
     });
   },
 
@@ -47927,10 +47920,10 @@ var Lesson = function Lesson(lesson) {
     CreateLesson: function CreateLesson() {
       var _this2 = this;
 
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/admin/' + this.serie_id + '/lessons', this.lesson).then(function (response) {
-        _this2.$parent.$emit('hasCreatedLesson', response.data);
-        $('#NewLessonModal').modal('hide');
-        _this2.serie_id = '';
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("/admin/" + this.serie_id + "/lessons", this.lesson).then(function (response) {
+        _this2.$parent.$emit("hasCreatedLesson", response.data);
+        $("#NewLessonModal").modal("hide");
+        _this2.serie_id = "";
       }).catch(function (error) {
         window.handleErrors(error);
       });
@@ -47938,15 +47931,15 @@ var Lesson = function Lesson(lesson) {
     updateLesson: function updateLesson() {
       var _this3 = this;
 
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/admin/' + this.serieId + '/lessons/' + this.lessonId, this.lesson).then(function (response) {
-        _this3.$parent.$emit('LessonUpdated', response.data);
-        $('#NewLessonModal').modal('hide');
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put("/admin/" + this.serieId + "/lessons/" + this.lessonId, this.lesson).then(function (response) {
+        _this3.$parent.$emit("LessonUpdated", response.data);
+        $("#NewLessonModal").modal("hide");
       }).catch(function (error) {
         window.handleErrors(error);
       });
-    }
-  }
+    } // final updateLesson
 
+  }
 });
 
 /***/ }),
@@ -48193,7 +48186,7 @@ var render = function() {
         _c(
           "ul",
           _vm._l(_vm.lessons, function(lesson, key) {
-            return _c("li", [
+            return _c("li", { key: lesson.id }, [
               _vm._v(_vm._s(lesson.title) + "\n\t\t\t\t "),
               _c(
                 "button",
@@ -48328,7 +48321,7 @@ exports = module.exports = __webpack_require__(52)(false);
 
 
 // module
-exports.push([module.i, "\n.notyalert {\n\tposition: fixed;\n\tright: 10px;\n\tbottom: 10px;\n  z-index: 1050;\n}\n", ""]);
+exports.push([module.i, "\n.notyalert {\n  position: fixed;\n  right: 10px;\n  bottom: 10px;\n  z-index: 1050;\n}\n", ""]);
 
 // exports
 
@@ -48693,7 +48686,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     var _this = this;
 
-    window.events.$on('notification', function (payload) {
+    window.events.$on("notification", function (payload) {
       _this.notification = payload;
       setTimeout(function () {
         _this.notification = null;
@@ -48709,7 +48702,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   computed: {
     type: function type() {
-      return 'alert-' + this.notification.type;
+      return "alert-" + this.notification.type;
     }
   }
 });
@@ -48806,58 +48799,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['default_lesson', 'next_lesson'],
-	data: function data() {
-		return {
-			lesson: JSON.parse(this.default_lesson)
-		};
-	},
+  props: ["default_lesson", "next_lesson"],
+  data: function data() {
+    return {
+      lesson: JSON.parse(this.default_lesson)
+    };
+  },
 
-	methods: {
-		notilessoncompleted: function notilessoncompleted() {
-			var _this = this;
+  methods: {
+    notilessoncompleted: function notilessoncompleted() {
+      var _this = this;
 
-			if (this.next_lesson) {
-				__WEBPACK_IMPORTED_MODULE_1_sweetalert___default()({
-					title: 'awsome you just completed this lesson',
-					text: "you will redirected automaticly to next lesson",
-					icon: "success",
-					button: { text: "continue" }
-				}).then(function () {
-					window.location = _this.next_lesson;
-				});
-			} else {
-				__WEBPACK_IMPORTED_MODULE_1_sweetalert___default()({
-					title: 'congratulation',
-					text: "you had completed this serie",
-					icon: "success",
-					button: { text: "close" }
-				}).then(function () {
-					window.location = '';
-				});
-			}
-		},
-		lessonCompleted: function lessonCompleted() {
-			var _this2 = this;
+      if (this.next_lesson) {
+        __WEBPACK_IMPORTED_MODULE_1_sweetalert___default()({
+          title: "awsome you just completed this lesson",
+          text: "you will redirected automaticly to next lesson",
+          icon: "success",
+          button: { text: "continue" }
+        }).then(function () {
+          window.location = _this.next_lesson;
+        });
+      } else {
+        __WEBPACK_IMPORTED_MODULE_1_sweetalert___default()({
+          title: "congratulation",
+          text: "you had completed this serie",
+          icon: "success",
+          button: { text: "close" }
+        }).then(function () {
+          window.location = "";
+        });
+      }
+    },
+    lessonCompleted: function lessonCompleted() {
+      var _this2 = this;
 
-			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/frontend/complete/lesson/' + this.lesson.id, {}).then(function (response) {
-				_this2.notilessoncompleted();
-			}).catch(function (error) {
-				console.log(error);
-			});
-		}
-	},
-	mounted: function mounted() {
-		var _this3 = this;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("/user/complete/lesson/" + this.lesson.id, {}).then(function (response) {
+        _this2.notilessoncompleted();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this3 = this;
 
-		var player = new __WEBPACK_IMPORTED_MODULE_2__vimeo_player__["a" /* default */]('handstick');
+    var player = new __WEBPACK_IMPORTED_MODULE_2__vimeo_player__["a" /* default */]("handstick");
 
-		player.on('ended', function () {
-			_this3.lessonCompleted();
-		});
-	}
+    player.on("ended", function () {
+      _this3.lessonCompleted();
+    });
+  }
 });
 
 /***/ }),

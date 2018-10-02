@@ -21,6 +21,10 @@ class FrontController extends Controller
 
     public function goto_serie(Serie $serie)
     {
+        $user = auth()->user();
+        if($user->hasstartserie($serie)){
+            return redirect()->route('watch_serie', ['serie'=>$serie,'lesson'=>$user->getNextLessonToWatch($serie)]);
+        }
         return redirect()->route('watch_serie', ['serie'=>$serie,'lesson'=>$serie->lessons->first()->id]);
     }
 

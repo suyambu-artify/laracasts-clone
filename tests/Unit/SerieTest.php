@@ -21,7 +21,7 @@ class ImagepathTest extends TestCase
 
 
     public function test_can_get_orderd_lessons_for_serie(){
-
+        $this->flushRedis();
     	$lessson = factory(Lesson::class)->create(['episode_number'=>200]);
     	$lessson2 = factory(Lesson::class)->create(['episode_number'=>100,'serie_id'=>1]);
     	$lessson3 = factory(Lesson::class)->create(['episode_number'=>300,'serie_id'=>1]);

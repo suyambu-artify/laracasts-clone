@@ -19,13 +19,13 @@ text-align: center;
         $prevlesson = $lesson->prevLesson();
        @endphp
 
-        @if($prevlesson)
+        @if($prevlesson->id !== $lesson->id)
         <a href="{{ route('watch_serie',[$serie->slug,$prevlesson->id]) }}" class="btn btn-success">previous</a>
         @else
         <button class="btn btn-success" disabled="disabled">previous</button>
         @endif
 
-        @if($nextlesson)
+        @if($nextlesson->id !== $lesson->id)
         <a href="{{ route('watch_serie',[$serie->slug,$nextlesson->id]) }}" class="btn btn-success">next</a>
         @else
         <button class="btn btn-success" disabled="disabled">next</button>
@@ -38,7 +38,7 @@ text-align: center;
 
     <vue-player default_lesson="{{$lesson}}"
 
-      @if($nextlesson)
+      @if($nextlesson->id !== $lesson->id )
         next_lesson="{{ route('watch_serie',[$serie->slug,$nextlesson->id]) }}"
      @endif >
          
